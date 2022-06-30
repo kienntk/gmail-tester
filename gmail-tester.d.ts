@@ -1,11 +1,4 @@
 declare module "gmail-tester" {
-  
-  export interface Attachment {
-    filename: string;
-    data: string;
-    mimeType: string;
-  }
-  
   export interface Email {
     from: string;
     receiver: string;
@@ -15,7 +8,6 @@ declare module "gmail-tester" {
       html: string;
       text: string;
     };
-    attachments: Attachment[];
   }
 
   export interface CheckInboxOptions {
@@ -27,8 +19,7 @@ declare module "gmail-tester" {
     after?: Date;
     wait_time_sec?: number;
     max_wait_time_sec?: number;
-    label?: string;
-    include_attachments: boolean;
+    label: string;
   }
 
   export interface GetMessagesOptions {
@@ -47,6 +38,12 @@ declare module "gmail-tester" {
   ): Promise<Email[]>;
 
   export function get_messages(
+    credentials_json: string,
+    token_path: string,
+    options: GetMessagesOptions
+  ): Promise<Email[]>;
+
+  export function delete_messages(
     credentials_json: string,
     token_path: string,
     options: GetMessagesOptions
